@@ -10,8 +10,11 @@ import subprocess
 import cv2
 import sys
 import numpy as np
+import os
+from random import randint
+import requests
 
-face_cascade= cv2.CascadeClassifier('C:/Users/dell/Desktop/haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 cap= cv2.VideoCapture(0)
 
 
@@ -59,6 +62,10 @@ def take_command():
     except:
         pass
     return command
+
+def goto(linenum):
+    global line
+    line = linenum
 
 def run_jarvis():
     command = take_command()
@@ -121,8 +128,8 @@ def run_jarvis():
     elif 'search' in command:
         ggle = command.replace('search', '')
         vxl= pywhatkit.search(ggle)
-        talk(vxl)
-        print(vxl)
+        talk('here are the results from google')
+        print("here are the results from google")
 
     elif "calculate" in command:
 
@@ -139,7 +146,7 @@ def run_jarvis():
         talk("I was built by Yuss")
         print("I was built by Yuss")
 
-    elif 'who is yuss' in command or 'who the heck is yuss' in command or '.....is yuss':
+    elif 'who is yuss' in command or 'who the heck is yuss' in command:
         talk(
             'yuss is a billionaire philantrophist who created the jarvis project and is currently living in..... ohh, I cant tell you that sorry')
         print(
@@ -150,5 +157,78 @@ def run_jarvis():
         tskl=subprocess.call("tasklist")
         talk(tskl)
         print(tskl)
+
+    elif 'repeat the statement' in command or 'repeat what i say' in command:
+        talk("ok what do you want me to say")
+        import time
+        time.sleep(1)
+        sya = take_command()
+        talk(sya)
+
+    elif 'do something fun' in command:
+
+        talk("ok yuss, choose between the following categories.....we have movies...songs...music artists .......jokes .......comics")
+
+        req = take_command()
+
+        if 'movies' in req:
+            talk('ok yuss....here are a list of upcoming movies from rotten tomatoes')
+            print(req)
+            webbrowser.open_new_tab('https://editorial.rottentomatoes.com/article/most-anticipated-movies-of-2021/')
+
+
+
+        elif'songs' in req:
+            talk('what type of music do you listen to?')
+            talk('we have gospel.......hiphop......RnB......Pop')
+            print(req)
+            sng = take_command()
+
+            if 'hiphop' in sng:
+                talk('you can look thorough the following tracks i pulled up on genius.com')
+                print('you can look thorough the following tracks i pulled up on genius.com')
+                webbrowser.open_new_tab('https://genius.com/artists/Rap-genius')
+
+            elif 'gospel' in sng:
+                talk('look at the following gospel tracks from you')
+                print('look at the following gospel tracks from')
+                webbrowser.open_new_tab('https://www.udiscovermusic.com/stories/praise-best-gospel-songs-time/')
+
+                talk('or if you want i can open gospel tracks from youtube')
+                print('or if you want i can open gospel tracks from youtube')
+
+                gsp = take_command()
+                if "yes" in gsp:
+                    talk('alright,.....here are some popular and uplifting songs you can select from youtube')
+                    print('alright,.....here are some popular and uplifting songs you can select from youtube')
+                    webbrowser.open_new_tab('https://www.youtube.com/results?search_query=great+gospel+songs+of+all+time')
+
+                else:
+                    talk('ok then.......you can browse the ones on youdiscover music then')
+                    run_jarvis()
+
+
+            elif 'pop' in sng:
+                talk('here are the latest pop tracks you might like')
+                print('here are the latest pop tracks you might like')
+
+            elif 'RnB' in sng:
+                talk('i pulled up latest RnB tracks....check them out')
+                print('i pulled up latest RnB tracks....check them out')
+            else:
+                talk('sorry but i dont know of that genre yet........ but if you need to do anything fun,..... just tell me')
+                run_jarvis()
+
+    elif 'give me a random word' in command:
+        url = 'https://svnweb.freebsd.org/csrg/share/dict/words?view=co&content-type=text%2Fplain'
+        r = requests.get(url)
+        text = r.text
+
+        word = text.split()
+        rndwrd = randint(0, len(word))
+
+        print(word[rndwrd])
+
+
 while True:
     run_jarvis()
