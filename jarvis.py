@@ -108,7 +108,7 @@ def run_jarvis():
 
     elif "hibernate" in command or "sleep" in command:
         talk("Hibernating now")
-        subprocess.call("shutdown /h /f -c J.A.R.V.I.S is hibernating this PC ")
+        subprocess.call("shutdown /h /f -t 66 -c J.A.R.V.I.S is hibernating this PC ")
 
     elif 'joke' in command:
         jk = command.replace('joke', '')
@@ -228,7 +228,26 @@ def run_jarvis():
         rndwrd = randint(0, len(word))
 
         print(word[rndwrd])
-
+        
+    elif " list sub processes" in command:
+        subprocess.call("help")
+        talk("here are a list of available windows batch commands")
+        print("here are a list of available windows batch commands")
+        llp=take_command
+        
+            if "disk part" in llp:
+                talk
+                subprocess.call("diskpart")
+                
+            else:
+            talk("i currently do not have the sub process requested")
+            print("i currently do not have the sub process requested")
+            run_jarvis
+    elif "show me all the live matches" in command:
+        talk("showing current matches from hesgoal.com")
+        print("showing current matches from hesgoal.com")
+        webbrowser.open_new_tab('hesgoal.com')
+            take_command
 
 while True:
     run_jarvis()
