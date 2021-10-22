@@ -233,7 +233,7 @@ def run_jarvis():
         subprocess.call("help")
         talk("here are a list of available windows batch commands")
         print("here are a list of available windows batch commands")
-        llp=take_command
+        llp=take_command()
         
             if "disk part" in llp:
                 talk
@@ -247,7 +247,11 @@ def run_jarvis():
         talk("showing current matches from hesgoal.com")
         print("showing current matches from hesgoal.com")
         webbrowser.open_new_tab('hesgoal.com')
-            take_command
-
+            take_command()
+            #to be continued
+    
+    elif "scan for wifi networks" in command:
+        os.system('cmd /c "netsh wlan show networks"')
+        
 while True:
     run_jarvis()
