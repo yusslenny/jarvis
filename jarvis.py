@@ -236,7 +236,7 @@ def run_jarvis():
         llp=take_command()
         
             if "disk part" in llp:
-                talk
+                talk("running")
                 subprocess.call("diskpart")
                 
             else:
